@@ -9,10 +9,11 @@ jobs:
     runs-on: windows-2022
 
     steps:
+      - name: Enable long paths
+        run: git config --system core.longpaths true
+
       - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          submodules: recursive
 
       - uses: abel0b/setup-premake@v2.4
         with:
