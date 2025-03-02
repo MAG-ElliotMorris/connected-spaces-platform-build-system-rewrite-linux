@@ -143,7 +143,7 @@ newaction {
     description = "Navigate to the build directory and run 'make'",
     execute     = function ()
         -- Generate the CPS version
-        os.execute("python3 -m pip install -r ../tools/VersionGenerator/requirements.txt")
+        os.execute("python3 -m pip install -r ../Tools/VersionGenerator/requirements.txt")
         os.execute("python3 ../Tools/VersionGenerator/VersionGenerator.py")
 
         -- Specify your build directory
