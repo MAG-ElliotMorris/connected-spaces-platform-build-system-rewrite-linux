@@ -13,6 +13,7 @@ function QuickJS.AddProject()
 
     defines { 
         "_HAS_EXCEPTIONS=0", 
+        "_UCRT_NOISY_NAN" --A bug in some MSVC's interprets NaN as not a constant expression, failing .c builds.
     }
 
     warnings "Off"
