@@ -142,7 +142,7 @@ newaction {
     trigger     = "build",
     description = "Navigate to the build directory and run 'make'",
     execute     = function ()
-        -- Generate the CPS version
+        -- Generate the CSP version
         os.execute("python3 -m pip install -r ../Tools/VersionGenerator/requirements.txt")
         os.execute("python3 ../Tools/VersionGenerator/VersionGenerator.py")
 
@@ -171,6 +171,10 @@ newaction {
     trigger     = "rebuild",
     description = "Navigate to the build directory and run 'make', with the rebuild flag",
     execute     = function ()
+        -- Generate the CSP version
+        os.execute("python3 -m pip install -r ../Tools/VersionGenerator/requirements.txt")
+        os.execute("python3 ../Tools/VersionGenerator/VersionGenerator.py")
+
         -- Specify your build directory
         local buildDir = "build"
 
