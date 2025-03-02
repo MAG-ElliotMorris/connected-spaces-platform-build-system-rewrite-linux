@@ -40273,6 +40273,11 @@ static JSValue js_number_isSafeInteger(JSContext *ctx, JSValueConst this_val,
     return JS_NewBool(ctx, is_safe_integer(d));
 }
 
+//https://developercommunity.visualstudio.com/t/NAN-is-no-longer-compile-time-constant-i/10688907
+#define NAN_MSVC_WORKAROUND (0.0 / 0.0)
+#define INFINITY_MSVC_WORKAROUND (1.0 / 0.0)
+#define -INFINITY_MSVC_WORKAROUND (-1.0 / 0.0)
+
 static const JSCFunctionListEntry js_number_funcs[] = {
     /* global ParseInt and parseFloat should be defined already or delayed */
     JS_ALIAS_BASE_DEF("parseInt", "parseInt", 0 ),
@@ -40283,9 +40288,9 @@ static const JSCFunctionListEntry js_number_funcs[] = {
     JS_CFUNC_DEF("isSafeInteger", 1, js_number_isSafeInteger ),
     JS_PROP_DOUBLE_DEF("MAX_VALUE", 1.7976931348623157e+308, 0 ),
     JS_PROP_DOUBLE_DEF("MIN_VALUE", 5e-324, 0 ),
-    JS_PROP_DOUBLE_DEF("NaN", NAN, 0 ),
-    JS_PROP_DOUBLE_DEF("NEGATIVE_INFINITY", -INFINITY, 0 ),
-    JS_PROP_DOUBLE_DEF("POSITIVE_INFINITY", INFINITY, 0 ),
+    JS_PROP_DOUBLE_DEF("NaN", NAN_MSVC_WORKAROUND, 0 ),
+    JS_PROP_DOUBLE_DEF("NEGATIVE_INFINITY", -INFINITY_MSVC_WORKAROUND, 0 ),
+    JS_PROP_DOUBLE_DEF("POSITIVE_INFINITY", INFINITY_MSVC_WORKAROUND, 0 ),
     JS_PROP_DOUBLE_DEF("EPSILON", 2.220446049250313e-16, 0 ), /* ES6 */
     JS_PROP_DOUBLE_DEF("MAX_SAFE_INTEGER", 9007199254740991.0, 0 ), /* ES6 */
     JS_PROP_DOUBLE_DEF("MIN_SAFE_INTEGER", -9007199254740991.0, 0 ), /* ES6 */
