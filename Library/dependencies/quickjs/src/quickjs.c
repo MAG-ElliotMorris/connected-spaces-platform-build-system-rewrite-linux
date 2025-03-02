@@ -40276,7 +40276,7 @@ static JSValue js_number_isSafeInteger(JSContext *ctx, JSValueConst this_val,
 //https://developercommunity.visualstudio.com/t/NAN-is-no-longer-compile-time-constant-i/10688907
 #define NAN_MSVC_WORKAROUND (0.0 / 0.0)
 #define INFINITY_MSVC_WORKAROUND (1.0 / 0.0)
-#define -INFINITY_MSVC_WORKAROUND (-1.0 / 0.0)
+#define NEGATIVE_INFINITY_MSVC_WORKAROUND (-1.0 / 0.0)
 
 static const JSCFunctionListEntry js_number_funcs[] = {
     /* global ParseInt and parseFloat should be defined already or delayed */
@@ -40289,7 +40289,7 @@ static const JSCFunctionListEntry js_number_funcs[] = {
     JS_PROP_DOUBLE_DEF("MAX_VALUE", 1.7976931348623157e+308, 0 ),
     JS_PROP_DOUBLE_DEF("MIN_VALUE", 5e-324, 0 ),
     JS_PROP_DOUBLE_DEF("NaN", NAN_MSVC_WORKAROUND, 0 ),
-    JS_PROP_DOUBLE_DEF("NEGATIVE_INFINITY", -INFINITY_MSVC_WORKAROUND, 0 ),
+    JS_PROP_DOUBLE_DEF("NEGATIVE_INFINITY", NEGATIVE_INFINITY_MSVC_WORKAROUND, 0 ),
     JS_PROP_DOUBLE_DEF("POSITIVE_INFINITY", INFINITY_MSVC_WORKAROUND, 0 ),
     JS_PROP_DOUBLE_DEF("EPSILON", 2.220446049250313e-16, 0 ), /* ES6 */
     JS_PROP_DOUBLE_DEF("MAX_SAFE_INTEGER", 9007199254740991.0, 0 ), /* ES6 */
@@ -48439,8 +48439,8 @@ static const JSCFunctionListEntry js_global_funcs[] = {
     JS_CFUNC_MAGIC_DEF("encodeURIComponent", 1, js_global_encodeURI, 1 ),
     JS_CFUNC_DEF("escape", 1, js_global_escape ),
     JS_CFUNC_DEF("unescape", 1, js_global_unescape ),
-    JS_PROP_DOUBLE_DEF("Infinity", INFINITY, 0 ),
-    JS_PROP_DOUBLE_DEF("NaN", NAN, 0 ),
+    JS_PROP_DOUBLE_DEF("Infinity", INFINITY_MSVC_WORKAROUND, 0 ),
+    JS_PROP_DOUBLE_DEF("NaN", NAN_MSVC_WORKAROUND, 0 ),
     JS_PROP_UNDEFINED_DEF("undefined", 0 ),
 
     /* for the 'Date' implementation */
