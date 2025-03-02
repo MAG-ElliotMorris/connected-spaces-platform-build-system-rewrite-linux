@@ -1,4 +1,4 @@
-name: Build
+name: Build Clang (Ubuntu)
 
 on:
   pull_request:
