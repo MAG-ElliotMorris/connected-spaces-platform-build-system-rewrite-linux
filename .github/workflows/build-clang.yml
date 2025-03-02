@@ -26,9 +26,11 @@ jobs:
           version: "18.1.8"
 
       - name: Install Dependencies
+        #libtinfo5 not in the default 24.04 package repo
         run: |
           sudo apt update
-          sudo apt install libtinfo5
+          wget http://security.ubuntu.com/ubuntu/pool/universe/n/ncurses/libtinfo5_6.3-2ubuntu0.1_amd64.deb
+          sudo apt install ./libtinfo5_6.3-2ubuntu0.1_amd64.deb
               
       - name: Build
         run: |
