@@ -26,8 +26,7 @@ function ConfigBuildForMSVC()
           "POCO_UTIL_NO_INIFILECONFIGURATION",
           "POCO_UTIL_NO_JSONCONFIGURATION",
           "POCO_UTIL_NO_XMLCONFIGURATION",
-          "LIBASYNC_STATIC",
-          "_UCRT_NOISY_NAN" --A bug in some MSVC interprets NaN as not a constant expression, failing builds for some dependencies (quickjs, https://developercommunity.visualstudio.com/t/NAN-is-no-longer-compile-time-constant-i/10688907)
+          "LIBASYNC_STATIC"
     }
 
 	disablewarnings {
