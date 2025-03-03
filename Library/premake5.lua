@@ -17,8 +17,26 @@ workspace "ConnectedSpacesPlatformLibrary"
     platforms { "x64" }
     location "build"
 
--- Output directory based on configuration, system, and architecture
-outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
+    -- Output directory based on configuration, system, and architecture
+    outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
+
+
+    -- Configuration-specific settings
+    filter "configurations:Debug"
+        defines { "DEBUG" }
+        symbols "On"
+
+    filter "configurations:Release"
+        defines { "NDEBUG" }
+        optimize "On"
+
+    filter "configurations:RelWithDebInfo"
+        defines { "NDEBUG" }
+        optimize "On"
+        symbols "On"
+
+    filter {}  -- clear filter
+
 
 project "CSP"
     location "build"
@@ -48,22 +66,6 @@ project "CSP"
 
     -- Include directories for headers
     includedirs { "include", "src", "dependencies/csp-services/generated" }
-
-    -- Configuration-specific settings
-    filter "configurations:Debug"
-        defines { "DEBUG" }
-        symbols "On"
-
-    filter "configurations:Release"
-        defines { "NDEBUG" }
-        optimize "On"
-
-    filter "configurations:RelWithDebInfo"
-        defines { "NDEBUG" }
-        optimize "On"
-        symbols "On"
-
-    filter {}  -- clear filter
 
    -- Forward the link-type through as a define for use in the codebase
    if _OPTIONS["link-type"] == "shared" then
