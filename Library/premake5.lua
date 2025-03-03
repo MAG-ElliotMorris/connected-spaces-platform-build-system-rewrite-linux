@@ -76,14 +76,14 @@ project "CSP"
 
     if os.istarget("windows") then
         include "premake_toolchain_config_msvc.lua"
-        ConfigBuildForMSVC()
         include "premake_install_msvc.lua"
         ConfigInstallForMSVC()
+        ConfigBuildForMSVC()
     elseif os.istarget("linux") then
         include "premake_toolchain_config_clang.lua"
-        ConfigBuildForClang()
         include "premake_install_clang.lua"
         ConfigInstallForClang()
+        ConfigBuildForClang()
     end
 
 -- Define a custom clean action, should be run from the root Library dir.

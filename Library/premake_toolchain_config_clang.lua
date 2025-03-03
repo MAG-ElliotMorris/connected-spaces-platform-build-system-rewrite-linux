@@ -80,4 +80,7 @@ function ConfigBuildForClang()
     POCO.Net.AddProject()
     POCO.NETSSL_OpenSSL.AddProject()
     POCO.Util.AddProject()
+
+    --Reset project
+    project "CSP"
 end
