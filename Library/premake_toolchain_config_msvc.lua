@@ -35,6 +35,10 @@ function ConfigBuildForMSVC()
         "4200"   -- Ignore nonstandard extension warnings (for quickjspp)
     }
 
+    buildoptions{
+        "/bigobj"
+    }
+
     linkoptions {
         "-IGNORE:4099"  -- Because we don't have debug symbols for OpenSSL libs
     }
