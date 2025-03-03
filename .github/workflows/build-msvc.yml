@@ -6,7 +6,7 @@ on:
 
 jobs:
   build:
-    runs-on: windows-2022
+    runs-on: windows-2019
 
     steps:
       - name: Enable long paths
@@ -26,7 +26,7 @@ jobs:
       - name: Setup MSBuild
         uses: microsoft/setup-msbuild@v2
         with:
-          vs-version: '17.13'
+          vs-version: '16.5'
 
       - name: Build on Windows
         run: |
