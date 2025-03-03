@@ -33,3 +33,27 @@ jobs:
           cd Library
           premake5 vs2022
           premake5 build
+
+      - name: List contents of build directory
+        run: |
+          dir "${{ github.workspace }}/Library/build" --recurse
+          dir "${{ github.workspace }}/Library/install"
+          dir "${{ github.workspace }}/Library/install/bin"
+          dir "${{ github.workspace }}/Library/install/bin" --recurse
+        shell: pwsh
+
+      - name: List contents of build directory (alt)
+        run: |
+          cmd /c tree /F
+        shell: pwsh
+
+      - name: List contents of build directory (alt2)
+        run: |
+          Get-ChildItem -Path ${{ github.workspace }} -Recurse | ForEach-Object { $_.FullName }
+        shell: pwsh
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows-CSP
+          path: ${{ github.workspace }}/Library/install/
