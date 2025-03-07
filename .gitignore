@@ -21,6 +21,7 @@ ARM64/*
 *.log
 *.npmrc
 app.config
+*venv
 
 # Allows Project files for Examples
 !/Examples/**/**.sln
