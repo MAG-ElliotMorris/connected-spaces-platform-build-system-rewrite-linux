@@ -144,11 +144,13 @@ newaction {
     trigger     = "build",
     description = "Navigate to the build directory and run 'make'",
     execute     = function ()
+
         -- Generate the CSP version
-        if os.execute("python3 -m pip install -r ../Tools/VersionGenerator/requirements.txt") ~= 0 then
-            error("Failed to install version generator dependencies")
+        if os.execute("python3 -m pip install -r ../Tools/VersionGenerator/requirements.txt") == false then
+            error("Failed to install version generator requirements")
         end
-        if os.execute("python3 ../Tools/VersionGenerator/VersionGenerator.py") ~= 0 then
+
+        if os.execute("python3 ../Tools/VersionGenerator/VersionGenerator.py") == false then
             error("Failed to run version generator")
         end
 
@@ -162,11 +164,11 @@ newaction {
 
             if os.host() == "windows" then
                 local vsSolution = "ConnectedSpacesPlatformLibrary.sln"
-                if os.execute("msbuild " .. vsSolution .. " /verbosity:d") ~= 0 then
+                if os.execute("msbuild " .. vsSolution .. " /verbosity:d") == false then
                     error("Build failed")
                 end
             else
-                if os.execute("make") ~= 0 then
+                if os.execute("make") == false then
                     error("Build failed")
                 end
             end
@@ -181,11 +183,13 @@ newaction {
     trigger     = "rebuild",
     description = "Navigate to the build directory and run 'make', with the rebuild flag",
     execute     = function ()
+
         -- Generate the CSP version
-        if os.execute("python3 -m pip install -r ../Tools/VersionGenerator/requirements.txt") ~= 0 then
-            error("Failed to install version generator dependencies")
+        if os.execute("python3 -m pip install -r ../Tools/VersionGenerator/requirements.txt") == false then
+            error("Failed to install version generator requirements")
         end
-        if os.execute("python3 ../Tools/VersionGenerator/VersionGenerator.py") ~= 0 then
+
+        if os.execute("python3 ../Tools/VersionGenerator/VersionGenerator.py") == false then
             error("Failed to run version generator")
         end
 
@@ -199,11 +203,11 @@ newaction {
 
             if os.host() == "windows" then
                 local vsSolution = "ConnectedSpacesPlatformLibrary.sln"
-                if os.execute("msbuild " .. vsSolution .. " /t:Rebuild /verbosity:d") ~= 0 then
+                if os.execute("msbuild " .. vsSolution .. " /t:Rebuild /verbosity:d") == false then
                     error("Build failed")
                 end
             else
-                if os.execute("make -B") ~= 0 then
+                if os.execute("make -B") == false then
                     error("Build failed")
                 end
             end
