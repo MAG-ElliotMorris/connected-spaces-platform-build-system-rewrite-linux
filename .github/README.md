@@ -16,6 +16,7 @@
 > - Linux (Clang) Builds
 > - Link Windows Build against a test exercisor
 > - Link Linux Build against a test exercisor
+> - Add tests for full matrix of build configs
 > - Run Interop Generator
 > - Tests Project Builds
 > - Solve CHS dependency for tests via VPN or Local OKO
