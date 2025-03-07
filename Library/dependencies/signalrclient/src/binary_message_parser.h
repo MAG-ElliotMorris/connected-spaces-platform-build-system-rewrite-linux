@@ -6,12 +6,14 @@
 
 #ifdef USE_MSGPACK
 
+#include <cstddef>
+
 namespace signalr
 {
-    namespace binary_message_parser
-    {
-        bool try_parse_message(const unsigned char* message, size_t length, size_t* length_prefix_length, size_t* length_of_message);
-    }
+namespace binary_message_parser
+{
+    bool try_parse_message(const unsigned char* message, size_t length, size_t* length_prefix_length, size_t* length_of_message);
+}
 }
 
 #endif
