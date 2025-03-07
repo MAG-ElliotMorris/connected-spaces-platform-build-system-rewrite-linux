@@ -8,9 +8,6 @@ function ConfigInstallForMSVC()
     local copyLibCommand = 'xcopy /E /I /Y /H "' .. topLevelDir .. 'bin" "' .. topLevelDir .. 'install/bin"'
     local copyHeadersCommand = 'xcopy /E /I /Y /H "' .. topLevelDir .. 'include/CSP" "' .. topLevelDir .. 'install/include"'
 
-    print(topLevelDir)
-    print(copyLibCommand)
-
     postbuildcommands {
         'mkdir "' .. topLevelDir .. 'install/bin"',
         'mkdir "' .. topLevelDir .. 'install/include"',

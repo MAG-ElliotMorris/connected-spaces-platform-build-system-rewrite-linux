@@ -145,8 +145,12 @@ newaction {
     description = "Navigate to the build directory and run 'make'",
     execute     = function ()
         -- Generate the CSP version
-        os.execute("python3 -m pip install -r ../Tools/VersionGenerator/requirements.txt")
-        os.execute("python3 ../Tools/VersionGenerator/VersionGenerator.py")
+        if(os.execute("python3 -m pip install -r ../Tools/VersionGenerator/requirements.txt"))
+            error("Failed to install version generator dependencies")
+        end
+        if(os.execute("python3 ../Tools/VersionGenerator/VersionGenerator.py"))
+            error("Failed to run version generator")
+        end
 
         -- Specify your build directory
         local buildDir = "build"
@@ -158,9 +162,13 @@ newaction {
 
             if os.host() == "windows" then
                 local vsSolution = "ConnectedSpacesPlatformLibrary.sln"
-                os.execute("msbuild " .. vsSolution .. " /verbosity:d")
+                if(os.execute("msbuild " .. vsSolution .. " /verbosity:d"))
+                    error("Build failed")
+                end
             else
-                os.execute("make")
+                if(os.execute("make"))
+                    error("Build failed")
+                end
             end
             os.chdir("../");
         else
@@ -174,8 +182,12 @@ newaction {
     description = "Navigate to the build directory and run 'make', with the rebuild flag",
     execute     = function ()
         -- Generate the CSP version
-        os.execute("python3 -m pip install -r ../Tools/VersionGenerator/requirements.txt")
-        os.execute("python3 ../Tools/VersionGenerator/VersionGenerator.py")
+        if(os.execute("python3 -m pip install -r ../Tools/VersionGenerator/requirements.txt"))
+            error("Failed to install version generator dependencies")
+        end
+        if(os.execute("python3 ../Tools/VersionGenerator/VersionGenerator.py"))
+            error("Failed to run version generator")
+        end
 
         -- Specify your build directory
         local buildDir = "build"
@@ -187,9 +199,13 @@ newaction {
 
             if os.host() == "windows" then
                 local vsSolution = "ConnectedSpacesPlatformLibrary.sln"
-                os.execute("msbuild " .. vsSolution .. " /t:Rebuild /verbosity:d")
+                if(os.execute("msbuild " .. vsSolution .. " /t:Rebuild /verbosity:d"))
+                    error("Build failed")
+                end
             else
-                os.execute("make -B")
+                if(os.execute("make -B"))
+                    error("Build failed")
+                end
             end
             os.chdir("../");
         else
