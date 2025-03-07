@@ -146,11 +146,11 @@ newaction {
     execute     = function ()
 
         -- Generate the CSP version
-        if os.execute("python3 -m pip install -r ../Tools/VersionGenerator/requirements.txt") == false then
+        if os.execute("python3 -m pip install -r ../Tools/VersionGenerator/requirements.txt") ~= true then
             error("Failed to install version generator requirements")
         end
 
-        if os.execute("python3 ../Tools/VersionGenerator/VersionGenerator.py") == false then
+        if os.execute("python3 ../Tools/VersionGenerator/VersionGenerator.py") ~= true then
             error("Failed to run version generator")
         end
 
@@ -164,11 +164,11 @@ newaction {
 
             if os.host() == "windows" then
                 local vsSolution = "ConnectedSpacesPlatformLibrary.sln"
-                if os.execute("msbuild " .. vsSolution .. " /verbosity:d") == false then
+                if os.execute("msbuild " .. vsSolution .. " /verbosity:d") ~= true then
                     error("Build failed")
                 end
             else
-                if os.execute("make") == false then
+                if os.execute("make") ~= true then
                     error("Build failed")
                 end
             end
@@ -185,11 +185,11 @@ newaction {
     execute     = function ()
 
         -- Generate the CSP version
-        if os.execute("python3 -m pip install -r ../Tools/VersionGenerator/requirements.txt") == false then
+        if os.execute("python3 -m pip install -r ../Tools/VersionGenerator/requirements.txt") ~= true then
             error("Failed to install version generator requirements")
         end
 
-        if os.execute("python3 ../Tools/VersionGenerator/VersionGenerator.py") == false then
+        if os.execute("python3 ../Tools/VersionGenerator/VersionGenerator.py") ~= true then
             error("Failed to run version generator")
         end
 
@@ -203,11 +203,11 @@ newaction {
 
             if os.host() == "windows" then
                 local vsSolution = "ConnectedSpacesPlatformLibrary.sln"
-                if os.execute("msbuild " .. vsSolution .. " /t:Rebuild /verbosity:d") == false then
+                if os.execute("msbuild " .. vsSolution .. " /t:Rebuild /verbosity:d") ~= true then
                     error("Build failed")
                 end
             else
-                if os.execute("make -B") == false then
+                if os.execute("make -B") ~= true then
                     error("Build failed")
                 end
             end
