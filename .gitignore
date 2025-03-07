@@ -34,6 +34,11 @@ app.config
 # Ignore auto-generated OS-specific data files
 .DS_Store
 
+#Ignore build + install
+Library/build
+Library/intermediate
+Library/install
+
 # Ignore auto-generated documentation
 Library/docs/build/**/*
 Library/docs/DoxygenOutput/**/*
