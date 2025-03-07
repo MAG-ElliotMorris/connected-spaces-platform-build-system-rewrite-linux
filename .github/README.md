@@ -6,6 +6,27 @@
 
 ## An interoperable communication library for the spatial internet
 
+> [!IMPORTANT]  
+> This fork is an experimental attempt to migrate the build system of CSP such that it can also produce linux binaries.
+> 
+> **Todo:**
+> - ~~Vendor all the dependencies (for now)~~
+> - ~~Setup an actions pipeline for CI~~
+> - ~~Windows (MSVC) Builds~~
+> - Linux (Clang) Builds
+> - Link Windows Build against a test exercisor
+> - Link Linux Build against a test exercisor
+> - Run Interop Generator
+> - Tests Project Builds
+> - Solve CHS dependency for tests via VPN or Local OKO
+> - Tests Passs on Windows
+> - Tests Pass on Linux
+> - Emscripten Builds
+> - Link Emscripten Build against a test exercisor
+> - Unity (IOS) Builds
+> - Test Unity Build Somehow
+> - Unvendor all possible dependencies
+
 
 ⚡️ Current Supported Languages : C++, C#, WebAssembly
 
