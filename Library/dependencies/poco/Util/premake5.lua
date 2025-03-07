@@ -44,6 +44,18 @@ if not POCO.Util then
         
         rtti("On")
         
+        filter "system:linux or system:android or system:macosx or system:ios" 
+            excludes { 
+                "**Windows**",
+                "**WinRegistry**",
+                "**WinService**",
+                "**wepoll.c**",
+                "**EventLog**" -- Windows-specific logging
+            }
+
+            defines {
+                "POCO_NO_WINDOWS_H"
+            }
         filter "platforms:Android"
             linkoptions { "-lm" } -- For gcc's math lib
             staticruntime("On")

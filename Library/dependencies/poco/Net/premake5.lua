@@ -56,6 +56,18 @@ if not POCO.Net then
                 "POCOFoundation",
                 "POCOUtil"
             }
+        filter "system:linux or system:android or system:macosx or system:ios" 
+            excludes { 
+                "**Windows**",
+                "**WinRegistry**",
+                "**WinService**",
+                "**wepoll.c**",
+                "**EventLog**" -- Windows-specific logging
+            }
+
+            defines {
+                "POCO_NO_WINDOWS_H"
+            }
         filter {}
     end
 end

@@ -12,7 +12,8 @@ function QuickJS.AddProject()
     cppdialect "C++17"
 
     defines { 
-        "_HAS_EXCEPTIONS=0"
+        "_HAS_EXCEPTIONS=0",
+        "_GNU_SOURCE" --For environ on linux
     }
 
     warnings "Off"

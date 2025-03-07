@@ -109,6 +109,17 @@ if not POCO.NETSSL_OpenSSL then
                 "ssl",            
                 "crypto",
             }
+        filter "system:linux or system:android or system:macosx or system:ios" 
+            excludes { 
+                "**Windows**",
+                "**WinRegistry**",
+                "**WinService**",
+                "**EventLog**" -- Windows-specific logging
+            }
+
+            defines {
+                "POCO_NO_WINDOWS_H"
+            }
         filter {}
     end
 end

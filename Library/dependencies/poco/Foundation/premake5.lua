@@ -84,7 +84,7 @@ if not POCO.Foundation then
             links {
                 "iphlpapi",
             }
-        filter { "platforms:Android or macosx or ios" }
+        filter "system:linux or system:android or system:macosx or system:ios" 
             excludes { 
                 "**Windows**",
                 "**EventLog**", -- Windows-specific logging
