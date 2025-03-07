@@ -14,7 +14,7 @@ function ConfigBuildForClang()
     toolset "clang"
 
     buildoptions {
-        "-stdlib=libc++"
+        "-stdlib=libc++" --Use the libc++ ABI (clang standard library, as opposed to libstdc++ (GCC))
     }
 
     linkoptions {

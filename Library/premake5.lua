@@ -126,10 +126,8 @@ newaction {
             "./dependencies/poco/Net/build",
             "./dependencies/poco/NetSLL_OpenSSL/build",
             "./dependencies/poco/Util/build"
-
         }
 
-   
         for _, dir in ipairs(dirs_to_remove) do
             remove_directory(dir)
         end
@@ -138,6 +136,38 @@ newaction {
     end
 }
 
+-- Create a venv, returning a path to the python executable inside that venv
+function CreateVenv(venvDir)
+    if not os.isdir(venvDir) then
+        os.execute("python3 -m venv " .. venvDir)
+    end
+
+    local pythonExecutable
+    if os.host() == "windows" then
+        pythonExecutable = venvDir .. "\\Scripts\\python"
+    else
+        pythonExecutable = venvDir .. "/bin/python"
+    end
+
+    return pythonExecutable
+end
+
+-- Generate the Version.h file needed to let CSP have introspection on its own version. A very good idea.
+function RunCSPVersionGenerator()   
+    -- Create a venv to run the version generator
+    local venvDir = "../Tools/VersionGenerator/venv"
+    local venvPython = CreateVenv(venvDir)
+
+    -- Generate the CSP version
+    if os.execute(venvPython .. " -m pip install -r ../Tools/VersionGenerator/requirements.txt") ~= true then
+        error("Failed to install version generator requirements")
+    end
+
+    if os.execute(venvPython .. " ../Tools/VersionGenerator/VersionGenerator.py") ~= true then
+        error("Failed to run version generator")
+    end
+end
+
 -- Define a custom build action, should be run from the root Library dir.
 -- Depends on the existance of `\build` dir, which should exist if you have run premake5 before this.
 newaction {
@@ -145,30 +175,21 @@ newaction {
     description = "Navigate to the build directory and run 'make'",
     execute     = function ()
 
-        -- Generate the CSP version
-        if os.execute("python3 -m pip install -r ../Tools/VersionGenerator/requirements.txt") ~= true then
-            error("Failed to install version generator requirements")
-        end
+        RunCSPVersionGenerator()
 
-        if os.execute("python3 ../Tools/VersionGenerator/VersionGenerator.py") ~= true then
-            error("Failed to run version generator")
-        end
-
-        -- Specify your build directory
         local buildDir = "build"
 
-        -- Check if the build directory exists
         if os.isdir(buildDir) then
-            -- Change to the build directory
+
             os.chdir(buildDir)
 
             if os.host() == "windows" then
                 local vsSolution = "ConnectedSpacesPlatformLibrary.sln"
-                if os.execute("msbuild " .. vsSolution .. " /verbosity:d") ~= true then
+                if os.execute("msbuild " .. vsSolution .. " /verbosity:d /m") ~= true then
                     error("Build failed")
                 end
             else
-                if os.execute("make") ~= true then
+                if os.execute("make -j$(nproc)") ~= true then
                     error("Build failed")
                 end
             end
@@ -184,30 +205,21 @@ newaction {
     description = "Navigate to the build directory and run 'make', with the rebuild flag",
     execute     = function ()
 
-        -- Generate the CSP version
-        if os.execute("python3 -m pip install -r ../Tools/VersionGenerator/requirements.txt") ~= true then
-            error("Failed to install version generator requirements")
-        end
+        RunCSPVersionGenerator()
 
-        if os.execute("python3 ../Tools/VersionGenerator/VersionGenerator.py") ~= true then
-            error("Failed to run version generator")
-        end
-
-        -- Specify your build directory
         local buildDir = "build"
 
-        -- Check if the build directory exists
         if os.isdir(buildDir) then
-            -- Change to the build directory
+
             os.chdir(buildDir)
 
             if os.host() == "windows" then
                 local vsSolution = "ConnectedSpacesPlatformLibrary.sln"
-                if os.execute("msbuild " .. vsSolution .. " /t:Rebuild /verbosity:d") ~= true then
+                if os.execute("msbuild " .. vsSolution .. " /t:Rebuild /verbosity:d /m") ~= true then
                     error("Build failed")
                 end
             else
-                if os.execute("make -B") ~= true then
+                if os.execute("make -B -j$(nproc)") ~= true then
                     error("Build failed")
                 end
             end
