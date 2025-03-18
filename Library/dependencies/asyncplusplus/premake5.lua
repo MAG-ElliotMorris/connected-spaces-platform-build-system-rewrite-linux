@@ -27,6 +27,8 @@ function AsyncPlusPlus.AddProject()
 		    "-pthread",
             "-fwasm-exceptions"
         }
+    filter "system:linux"
+        buildoptions { "-fPIC" } 
 	filter {}
 	
     files {

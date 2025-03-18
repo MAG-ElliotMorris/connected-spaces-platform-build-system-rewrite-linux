@@ -22,6 +22,8 @@ function QuickJS.AddProject()
         defines { 
             "JS_STRICT_NAN_BOXING"
         }
+    filter "system:linux"
+        buildoptions { "-fPIC" } 
     filter "platforms:macosx"
         defines { 
             "JS_STRICT_NAN_BOXING"

@@ -37,6 +37,16 @@ workspace "ConnectedSpacesPlatformLibrary"
 
     filter {}  -- clear filter
 
+    if os.istarget("windows") then
+        include "premake_toolchain_config_msvc.lua"
+        include "premake_install_msvc.lua"
+        ConfigWorkspaceForMSVC()
+    elseif os.istarget("linux") then
+        include "premake_toolchain_config_clang.lua"
+        include "premake_install_clang.lua"
+        ConfigWorkspaceForClang()
+    end
+
 
 project "CSP"
     location "build"
@@ -75,15 +85,11 @@ project "CSP"
     rtti("On")
 
     if os.istarget("windows") then
-        include "premake_toolchain_config_msvc.lua"
-        include "premake_install_msvc.lua"
         ConfigInstallForMSVC()
-        ConfigBuildForMSVC()
+        ConfigCSPForMSVC()
     elseif os.istarget("linux") then
-        include "premake_toolchain_config_clang.lua"
-        include "premake_install_clang.lua"
         ConfigInstallForClang()
-        ConfigBuildForClang()
+        ConfigCSPForClang()
     end
 
 -- Define a custom clean action, should be run from the root Library dir.
@@ -124,7 +130,7 @@ newaction {
             "./dependencies/poco/Crypto/build",
             "./dependencies/poco/Foundation/build",
             "./dependencies/poco/Net/build",
-            "./dependencies/poco/NetSLL_OpenSSL/build",
+            "./dependencies/poco/NetSSL_OpenSSL/build",
             "./dependencies/poco/Util/build"
         }
 
@@ -189,7 +195,7 @@ newaction {
                     error("Build failed")
                 end
             else
-                if os.execute("make -j$(nproc)") ~= true then
+                if os.execute("make VERBOSE=1 -j$(nproc)") ~= true then
                     error("Build failed")
                 end
             end

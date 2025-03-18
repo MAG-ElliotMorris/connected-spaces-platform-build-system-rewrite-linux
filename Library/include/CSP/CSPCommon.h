@@ -44,7 +44,7 @@
 #define CSP_EXPORT __declspec(dllexport)
 #define CSP_IMPORT __declspec(dllimport)
 
-#elif defined CSP_MACOSX || defined CSP_IOS || defined CSP_ANDROID
+#elif defined CSP_MACOSX || defined CSP_IOS || defined CSP_ANDROID || defined CSP_LINUX
 #define CSP_EXPORT __attribute__((visibility("default")))
 #define CSP_IMPORT __attribute__((visibility("default")))
 

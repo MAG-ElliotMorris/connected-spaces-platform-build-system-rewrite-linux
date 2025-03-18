@@ -9,16 +9,15 @@ if not POCO.NETSSL_OpenSSL then
     
     function POCO.NETSSL_OpenSSL.AddProject()
         project "POCONetSSL_OpenSSL"
-        location "dependencies/poco/NETSSL_OpenSSL/build"
+        location "dependencies/poco/NetSSL_OpenSSL/build"
         kind "StaticLib"
         language "C++"
         cppdialect "C++17"
 		warnings "Off"
 
         files {
-            "%{prj.location}/../**.h",
-            "%{prj.location}/../**.cpp",
-            "%{prj.location}/../**.c"
+            "%{prj.location}/../src/**.cpp",
+            "%{prj.location}/../include/**.h"
         }
 
         defines {
@@ -39,17 +38,10 @@ if not POCO.NETSSL_OpenSSL then
             "%{prj.location}/../../Net/include",
             "%{prj.location}/../../Crypto/include",
             "%{prj.location}/../../Util/include",
-            _MAIN_SCRIPT_DIR .. "/dependencies/OpenSSL/1.1.1k/include"
+           -- _MAIN_SCRIPT_DIR .. "/dependencies/OpenSSL/1.1.1k/include"
         }
         
         rtti("On")
-        
-        links {
-            "POCOFoundation",
-            "POCONet",
-            "POCOCrypto",
-            "POCOUtil"
-        }
         
         filter "platforms:x64"
             externalincludedirs {
@@ -111,7 +103,7 @@ if not POCO.NETSSL_OpenSSL then
             }
         filter "system:linux or system:android or system:macosx or system:ios" 
             excludes { 
-                "**Windows**",
+                --"**Windows**",
                 "**WinRegistry**",
                 "**WinService**",
                 "**EventLog**" -- Windows-specific logging
@@ -120,6 +112,9 @@ if not POCO.NETSSL_OpenSSL then
             defines {
                 "POCO_NO_WINDOWS_H"
             }
+
+
+            buildoptions { "-fPIC" } 
         filter {}
     end
 end

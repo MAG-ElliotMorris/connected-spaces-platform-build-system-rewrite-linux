@@ -48,7 +48,7 @@
 #define PRAGMA_WARNING_IGNORE_MSVC(WarningCode) __pragma(warning(disable : WarningCode))
 #define PRAGMA_WARNING_IGNORE_CLANG(WarningName)
 #define PRAGMA_WARNING_POP() __pragma(warning(pop))
-#elif defined CSP_MACOSX || defined CSP_IOS || defined CSP_ANDROID
+#elif defined CSP_MACOSX || defined CSP_IOS || defined CSP_ANDROID || defined CSP_LINUX
 #define CSP_DLLEXPORT __attribute__((visibility("default")))
 #define CSP_DLLIMPORT __attribute__((visibility("default")))
 

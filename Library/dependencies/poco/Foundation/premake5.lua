@@ -86,7 +86,8 @@ if not POCO.Foundation then
             }
         filter "system:linux or system:android or system:macosx or system:ios" 
             excludes { 
-                "**Windows**",
+                --"**Windows**",
+                "**WindowsConsoleChannel**",
                 "**EventLog**", -- Windows-specific logging
             }
             -- This cancels the exclusion of encoding source files with 'Windows' in the filename that we do want to compile on other platforms
@@ -100,6 +101,8 @@ if not POCO.Foundation then
                 "POCO_NO_WSTRING",
                 "POCO_NO_SHAREDMEMORY"
             }
+            
+            buildoptions { "-fPIC" } 
         filter "platforms:ios"
             defines { "POCO_NO_STAT64" }
         filter "platforms:Android"

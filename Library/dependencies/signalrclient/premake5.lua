@@ -46,5 +46,7 @@ function SignalRClient.AddProject()
         linkoptions { 
             "-fwasm-exceptions"
         }
+    filter "system:linux"
+        buildoptions { "-fPIC" } 
     filter {}
 end

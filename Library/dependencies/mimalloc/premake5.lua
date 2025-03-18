@@ -6,7 +6,7 @@ end
 
 function MiMalloc.AddProject()
     project "mimalloc"
-    location "dependencies/mimalloc/buildr"
+    location "dependencies/mimalloc/build"
     kind "StaticLib"
     language "C++"
     cppdialect "C++17"
@@ -26,5 +26,7 @@ function MiMalloc.AddProject()
         flags { "ExcludeFromBuild" }
     filter "platforms:macosx"
         flags { "ExcludeFromBuild" }
+    filter "system:linux"
+        buildoptions { "-fPIC" } 
     filter {}
 end

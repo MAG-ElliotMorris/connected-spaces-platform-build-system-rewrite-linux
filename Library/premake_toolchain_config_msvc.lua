@@ -9,40 +9,47 @@ include "dependencies/poco/Net/premake5.lua"
 include "dependencies/poco/NetSSL_OpenSSL/premake5.lua"
 include "dependencies/poco/Util/premake5.lua"
 
-function ConfigBuildForMSVC()
+function ConfigWorkspaceForMSVC()
     defines {
-          "CSP_DESKTOP",
-          "CSP_WINDOWS",
-          "JS_STRICT_NAN_BOXING", -- For QuickJS strict NaN boxing behavior, unsure exactly why this is here.
-          "_SILENCE_CXX17_CODECVT_HEADER_DEPRECATION_WARNING",
-          "NO_SIGNALRCLIENT_EXPORTS",
-          "USE_MSGPACK",
-          "POCO_STATIC", -- Not for WASM
-          "POCO_NO_AUTOMATIC_LIBS", -- Not for WASM
-          "POCO_NO_INOTIFY",
-          "POCO_NO_FILECHANNEL",
-          "POCO_NO_SPLITTERCHANNEL",
-          "POCO_NO_SYSLOGCHANNEL",
-          "POCO_UTIL_NO_INIFILECONFIGURATION",
-          "POCO_UTIL_NO_JSONCONFIGURATION",
-          "POCO_UTIL_NO_XMLCONFIGURATION",
-          "LIBASYNC_STATIC"
-    }
+        "CSP_DESKTOP",
+        "CSP_WINDOWS",
+        "JS_STRICT_NAN_BOXING", -- For QuickJS strict NaN boxing behavior, unsure exactly why this is here.
+        "_SILENCE_CXX17_CODECVT_HEADER_DEPRECATION_WARNING",
+        "NO_SIGNALRCLIENT_EXPORTS",
+        "USE_MSGPACK",
+        "POCO_STATIC", -- Not for WASM
+        "POCO_NO_AUTOMATIC_LIBS", -- Not for WASM
+        "POCO_NO_INOTIFY",
+        "POCO_NO_FILECHANNEL",
+        "POCO_NO_SPLITTERCHANNEL",
+        "POCO_NO_SYSLOGCHANNEL",
+        "POCO_UTIL_NO_INIFILECONFIGURATION",
+        "POCO_UTIL_NO_JSONCONFIGURATION",
+        "POCO_UTIL_NO_XMLCONFIGURATION",
+        "LIBASYNC_STATIC"
+  }
 
-	disablewarnings {
-        "4251",  -- Ignore dll interface warnings
-        "4996",  -- Ignore deprecated warnings
-        "4200"   -- Ignore nonstandard extension warnings (for quickjspp)
-    }
+  disablewarnings {
+      "4251",  -- Ignore dll interface warnings
+      "4996",  -- Ignore deprecated warnings
+      "4200"   -- Ignore nonstandard extension warnings (for quickjspp)
+  }
 
-    buildoptions{
-        "/bigobj"
-    }
+  buildoptions{
+      "/bigobj",
+      "-fvisibility=hidden",
+      "-fvisibility-inlines-hidden"
+  }
 
-    linkoptions {
-        "-IGNORE:4099"  -- Because we don't have debug symbols for OpenSSL libs
-    }
+  linkoptions {
+      "-IGNORE:4099"  -- Because we don't have debug symbols for OpenSSL libs
+  }
 
+  systemversion "latest" -- https://premake.github.io/docs/systemversion/ (For selecting windows SDK)
+
+end
+
+function ConfigCSPForMSVC()
     links {
         "WS2_32", -- Windows socket library, I guess neccesary for poco?
         "signalrclient",
@@ -78,13 +85,8 @@ function ConfigBuildForMSVC()
         "dependencies/poco/Foundation/include",
         "dependencies/poco/Net/include",
         "dependencies/poco/NetSSL_OpenSSL/include",
-        "dependencies/poco/Util/include",
-        -- OpenSSL is not used in WASM builds
-        "dependencies/OpenSSL/1.1.1k/include",
-        "dependencies/OpenSSL/1.1.1k/include/platform/win64"
+        "dependencies/poco/Util/include"
     }
-
-    systemversion "latest" -- https://premake.github.io/docs/systemversion/ (For selecting windows SDK)
 
     SignalRClient.AddProject()
     QuickJS.AddProject()

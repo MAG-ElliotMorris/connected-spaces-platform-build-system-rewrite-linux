@@ -46,7 +46,7 @@ if not POCO.Util then
         
         filter "system:linux or system:android or system:macosx or system:ios" 
             excludes { 
-                "**Windows**",
+                --"**Windows**",
                 "**WinRegistry**",
                 "**WinService**",
                 "**wepoll.c**",
@@ -56,6 +56,8 @@ if not POCO.Util then
             defines {
                 "POCO_NO_WINDOWS_H"
             }
+
+            buildoptions { "-fPIC" } 
         filter "platforms:Android"
             linkoptions { "-lm" } -- For gcc's math lib
             staticruntime("On")

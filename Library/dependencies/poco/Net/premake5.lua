@@ -58,16 +58,27 @@ if not POCO.Net then
             }
         filter "system:linux or system:android or system:macosx or system:ios" 
             excludes { 
-                "**Windows**",
-                "**WinRegistry**",
-                "**WinService**",
                 "**wepoll.c**",
-                "**EventLog**" -- Windows-specific logging
             }
 
             defines {
                 "POCO_NO_WINDOWS_H"
             }
+
+                --TODO, try to wrap the stdlib selection based on language:C++
+            buildoptions {
+                "-stdlib=libc++", --Use the libc++ ABI (clang standard library, as opposed to libstdc++ (GCC))
+                "-fPIC",
+                "-fvisibility=hidden",
+                "-fvisibility-inlines-hidden"
+            }
+
+            linkoptions {
+                "-stdlib=libc++",
+                "-lc++abi" --Use the libc++ ABI (clang standard library, as opposed to libstdc++ (GCC))
+            }
+
+            buildoptions { "-fPIC" } 
         filter {}
     end
 end

@@ -9,17 +9,33 @@ include "dependencies/poco/Net/premake5.lua"
 include "dependencies/poco/NetSSL_OpenSSL/premake5.lua"
 include "dependencies/poco/Util/premake5.lua"
 
-function ConfigBuildForClang()
-
+function ConfigWorkspaceForClang()
     toolset "clang"
 
+    --TODO, try to wrap the stdlib selection based on language:C++
     buildoptions {
-        "-stdlib=libc++" --Use the libc++ ABI (clang standard library, as opposed to libstdc++ (GCC))
+        "-stdlib=libc++", --Use the libc++ ABI (clang standard library, as opposed to libstdc++ (GCC))
+        "-fPIC",
+        "-fvisibility=hidden",
+        "-fvisibility-inlines-hidden"
     }
 
     linkoptions {
         "-stdlib=libc++",
         "-lc++abi" --Use the libc++ ABI (clang standard library, as opposed to libstdc++ (GCC))
+    }
+
+    links { "ssl", "crypto", "dl", "pthread" } -- Standard OpenSSL linkage
+
+    local openssl_dir = _MAIN_SCRIPT_DIR .. "/dependencies/OpenSSL/1.1.1k/lib/Linux/x64"
+    linkoptions { "-L" .. openssl_dir .. "/lib -Wl,-Bstatic -lssl -lcrypto -Wl,-Bdynamic" }
+
+    includedirs{
+        "dependencies/OpenSSL/1.1.1k/include/platform/linux"
+    }
+
+    libdirs {
+        _MAIN_SCRIPT_DIR .. "/dependencies/OpenSSL/1.1.1k/lib/Linux/x64"
     }
 
     defines {
@@ -39,11 +55,34 @@ function ConfigBuildForClang()
           "POCO_UTIL_NO_XMLCONFIGURATION",
           "LIBASYNC_STATIC"
     }
+end
+
+function ConfigCSPForClang()
+
+    --TODO, try to wrap the stdlib selection based on language:C++
+    buildoptions {
+        "-stdlib=libc++", --Use the libc++ ABI (clang standard library, as opposed to libstdc++ (GCC))
+        "-fPIC",
+        "-fvisibility=default"
+    }
+
+    linkoptions {
+        "-stdlib=libc++",
+        "-lc++abi", --Use the libc++ ABI (clang standard library, as opposed to libstdc++ (GCC))
+        "-Wl,--exclude-libs,ALL",
+    }
 
     links {
-        "pthread",
-        "ssl",
-        "crypto"
+        "signalrclient",
+        "quickjs",
+        "asyncplusplus",
+        "mimalloc",
+        "tinyspline",
+        "POCONetSSL_OpenSSL",
+        "POCONet",
+        "POCOCrypto",
+        "POCOUtil",
+        "POCOFoundation"
     }
 
     excludes {
@@ -81,6 +120,6 @@ function ConfigBuildForClang()
     POCO.NETSSL_OpenSSL.AddProject()
     POCO.Util.AddProject()
 
-    --Reset project
+    --Reset project (AddProject changes this)
     project "CSP"
 end

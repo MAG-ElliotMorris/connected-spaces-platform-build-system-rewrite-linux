@@ -29,7 +29,7 @@ if not POCO.Crypto then
         externalincludedirs {
             "%{prj.location}/../include",
             "%{prj.location}/../../Foundation/include",
-            _MAIN_SCRIPT_DIR .. "/dependencies/OpenSSL/1.1.1k/include"
+          --  _MAIN_SCRIPT_DIR .. "/dependencies/OpenSSL/1.1.1k/include"
         }
         
         rtti("On")
@@ -57,6 +57,12 @@ if not POCO.Crypto then
         filter "platforms:ios"
             externalincludedirs {
                 _MAIN_SCRIPT_DIR .. "/dependencies/OpenSSL/1.1.1k/include/platform/ios"
+            }
+        filter "system:linux"
+            buildoptions { "-fPIC" } 
+            excludes { 
+                --"**Windows**",
+                "**EventLog**", -- Windows-specific logging
             }
         filter {}
     end
