@@ -4,7 +4,7 @@ workspace "CppPackagingTest"
     language "C++"
     cppdialect "C++17"
 
-project "MyProject"
+project "CppPackagingTest"
     kind "ConsoleApp"
     targetdir "bin/%{cfg.buildcfg}"
     objdir "intermediate/%{cfg.buildcfg}"
