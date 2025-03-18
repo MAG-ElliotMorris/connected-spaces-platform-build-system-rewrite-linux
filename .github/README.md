@@ -13,7 +13,7 @@
 > - ~~Vendor all the dependencies (for now)~~
 > - ~~Setup an actions pipeline for CI~~
 > - ~~Windows (MSVC) Builds~~
-> - Linux (Clang) Builds
+> - ~~Linux (Clang) Builds~~
 > - Link Windows Build against a test exercisor
 > - Link Linux Build against a test exercisor
 > - Add tests for full matrix of build configs
