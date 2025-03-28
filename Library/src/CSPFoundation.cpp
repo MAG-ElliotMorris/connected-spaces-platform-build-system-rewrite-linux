@@ -216,7 +216,8 @@ std::string LoadDeviceId()
     {
         std::cout << "Device File Path: " << DeviceIdFilePath << std::endl;
         std::cout << strerror(errno) << std::endl;
-        std::filesystem::create_directories(DeviceIdFilePath);
+        std::filesystem::path path(DeviceIdFilePath);
+        std::filesystem::create_directories(path.parent_path());
         FILE* File = FOPEN(DeviceIdFilePath.c_str(), "w");
         assert(File != nullptr);
 
