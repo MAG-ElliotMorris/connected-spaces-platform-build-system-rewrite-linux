@@ -26,6 +26,7 @@
 #include "Memory/Memory.h"
 
 #include <cstdio>
+#include <iostream>
 
 #if defined(DEBUG)
 #define LIB_NAME "ConnectedSpacesPlatform_D"
@@ -173,6 +174,7 @@ std::string DeviceIdPath()
     sprintf(CSPDataRoot, "%s/Library/MagnopusCSP/", getenv("HOME"));
 #endif
 
+    std::cout << "CSPDataRoot: " << CSPDataRoot << std::endl;
     return CSPDataRoot;
 }
 #endif
