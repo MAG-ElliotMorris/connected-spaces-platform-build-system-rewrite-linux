@@ -83,7 +83,7 @@ jobs:
 
       - name: Run
         run: |
+          export LD_LIBRARY_PATH=$(pwd)/PackagingTests/Cpp/install/lib
           cd PackagingTests/Cpp/bin/Release
-          export LD_LIBRARY_PATH=PackaginTests/Cpp/install/lib
           ./CppPackagingTest
 
