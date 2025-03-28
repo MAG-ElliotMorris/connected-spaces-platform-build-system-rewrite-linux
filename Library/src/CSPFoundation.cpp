@@ -30,6 +30,8 @@
 #include <errno.h>
 #include <string.h>
 
+#include <filesystem>
+
 #if defined(DEBUG)
 #define LIB_NAME "ConnectedSpacesPlatform_D"
 #else
@@ -214,6 +216,7 @@ std::string LoadDeviceId()
     {
         std::cout << "Device File Path: " << DeviceIdFilePath << std::endl;
         std::cout << strerror(errno) << std::endl;
+        std::filesystem::create_directories(DeviceIdFilePath);
         FILE* File = FOPEN(DeviceIdFilePath.c_str(), "w");
         assert(File != nullptr);
 
