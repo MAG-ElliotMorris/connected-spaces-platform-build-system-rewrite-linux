@@ -158,14 +158,17 @@ function CreateVenv(venvDir)
     return pythonExecutable
 end
 
+
 -- Generate the Version.h file needed to let CSP have introspection on its own version. A very good idea.
 function RunCSPVersionGenerator()   
     -- Create a venv to run the version generator
-    local venvDir = "../Tools/VersionGenerator/venv"
+    local venvDir = path.getabsolute("../Tools/VersionGenerator/venv")
     local venvPython = CreateVenv(venvDir)
 
+    local installRequirementsCommand = venvPython .. " -m pip install -r ../Tools/VersionGenerator/requirements.txt"
+
     -- Generate the CSP version
-    if os.execute(venvPython .. " -m pip install -r ../Tools/VersionGenerator/requirements.txt") ~= true then
+    if os.execute(installRequirementsCommand) ~= true then
         error("Failed to install version generator requirements")
     end
 
