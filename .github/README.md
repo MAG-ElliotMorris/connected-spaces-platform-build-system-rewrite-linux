@@ -14,16 +14,16 @@
 > - ~~Setup an actions pipeline for CI~~
 > - ~~Windows (MSVC) Builds~~
 > - ~~Linux (Clang) Builds~~
-> - Link Windows Build against a test exercisor
-> - Link Linux Build against a test exercisor
+> - ~~Link Windows Build against a test exerciser~~
+> - ~~Link Linux Build against a test exerciser~~
 > - Add tests for full matrix of build configs
 > - Run Interop Generator
 > - Tests Project Builds
 > - Solve CHS dependency for tests via VPN or Local OKO
-> - Tests Passs on Windows
+> - Tests Pass on Windows
 > - Tests Pass on Linux
 > - Emscripten Builds
-> - Link Emscripten Build against a test exercisor
+> - Link Emscripten Build against a test exerciser
 > - Unity (IOS) Builds
 > - Test Unity Build Somehow
 > - Unvendor all possible dependencies
