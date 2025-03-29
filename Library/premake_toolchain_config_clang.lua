@@ -31,7 +31,8 @@ function ConfigWorkspaceForClang()
     linkoptions { "-L" .. openssl_dir .. "/lib -Wl,-Bstatic -lssl -lcrypto -Wl,-Bdynamic" }
 
     includedirs{
-        "dependencies/OpenSSL/1.1.1k/include/platform/linux"
+        "dependencies/OpenSSL/1.1.1k/include/platform/linux",
+        "dependencies/OpenSSL/1.1.1k/include"
     }
 
     libdirs {
