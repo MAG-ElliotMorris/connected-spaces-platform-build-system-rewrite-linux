@@ -12,6 +12,24 @@ include "dependencies/poco/Util/premake5.lua"
 function ConfigWorkspaceForClang()
     toolset "clang"
 
+    defines {
+        "CSP_DESKTOP",
+        "CSP_LINUX",
+        "JS_STRICT_NAN_BOXING", -- For QuickJS strict NaN boxing behavior, unsure exactly why this is here.
+        "NO_SIGNALRCLIENT_EXPORTS",
+        "USE_MSGPACK",
+        "POCO_STATIC",  -- Not for WASM
+        "POCO_NO_AUTOMATIC_LIBS",  -- Not for WASM
+        "POCO_NO_INOTIFY",
+        "POCO_NO_FILECHANNEL",
+        "POCO_NO_SPLITTERCHANNEL",
+        "POCO_NO_SYSLOGCHANNEL",
+        "POCO_UTIL_NO_INIFILECONFIGURATION",
+        "POCO_UTIL_NO_JSONCONFIGURATION",
+        "POCO_UTIL_NO_XMLCONFIGURATION",
+        "LIBASYNC_STATIC"
+  }
+
     --TODO, try to wrap the stdlib selection based on language:C++
     buildoptions {
         "-stdlib=libc++", --Use the libc++ ABI (clang standard library, as opposed to libstdc++ (GCC))
@@ -39,23 +57,6 @@ function ConfigWorkspaceForClang()
         _MAIN_SCRIPT_DIR .. "/dependencies/OpenSSL/1.1.1k/lib/Linux/x64"
     }
 
-    defines {
-          "CSP_DESKTOP",
-          "CSP_LINUX",
-          "JS_STRICT_NAN_BOXING", -- For QuickJS strict NaN boxing behavior, unsure exactly why this is here.
-          "NO_SIGNALRCLIENT_EXPORTS",
-          "USE_MSGPACK",
-          "POCO_STATIC",  -- Not for WASM
-          "POCO_NO_AUTOMATIC_LIBS",  -- Not for WASM
-          "POCO_NO_INOTIFY",
-          "POCO_NO_FILECHANNEL",
-          "POCO_NO_SPLITTERCHANNEL",
-          "POCO_NO_SYSLOGCHANNEL",
-          "POCO_UTIL_NO_INIFILECONFIGURATION",
-          "POCO_UTIL_NO_JSONCONFIGURATION",
-          "POCO_UTIL_NO_XMLCONFIGURATION",
-          "LIBASYNC_STATIC"
-    }
 end
 
 function ConfigCSPForClang()

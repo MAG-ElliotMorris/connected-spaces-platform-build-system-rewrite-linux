@@ -58,12 +58,13 @@ project "CSP"
         static = "StaticLib",
         shared = "SharedLib",
     }
-   kind(libraryKinds[_OPTIONS["build-type"]])
+    kind(libraryKinds[_OPTIONS["build-type"]])
 
     language "C++"
     cppdialect "C++17"
 
     targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+    implibdir ("bin/" .. outputdir .. "/%{prj.name}")
     objdir ("intermediate/" .. outputdir .. "/%{prj.name}")
 
     -- Include source and header files
@@ -78,7 +79,7 @@ project "CSP"
     includedirs { "include", "src", "dependencies/csp-services/generated" }
 
    -- Forward the link-type through as a define for use in the codebase
-   if _OPTIONS["link-type"] == "shared" then
+   if _OPTIONS["build-type"] == "shared" then
        defines { "CSP_BUILD_SHARED" }
    end
 
