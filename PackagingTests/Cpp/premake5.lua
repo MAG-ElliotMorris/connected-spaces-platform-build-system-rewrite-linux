@@ -15,24 +15,27 @@ project "CppPackagingTest"
         "USING_CSP_SHARED"
     }
 
-    toolset "clang"
-
-    buildoptions {
-        "-stdlib=libc++", --Use the libc++ ABI (clang standard library, as opposed to libstdc++ (GCC))
-        "-fPIC"
-    }
-
-    linkoptions {
-        "-stdlib=libc++",
-        "-lc++abi" --Use the libc++ ABI (clang standard library, as opposed to libstdc++ (GCC))
-    }
-
     includedirs { "install/include" }
-    libdirs { "install/lib" }
     links { "CSP" }
 
+    filter "system:windows"
+        toolset "msc"
+        libdirs { "install/bin" }
+
     filter "system:linux"
+        toolset "clang"
         links { "dl", "pthread" } 
+        libdirs { "install/lib" }
+
+        buildoptions {
+            "-stdlib=libc++", --Use the libc++ ABI (clang standard library, as opposed to libstdc++ (GCC))
+            "-fPIC"
+        }
+            
+        linkoptions {
+            "-stdlib=libc++",
+            "-lc++abi" --Use the libc++ ABI (clang standard library, as opposed to libstdc++ (GCC))
+        }
 
     filter "configurations:Debug"
         symbols "On"
