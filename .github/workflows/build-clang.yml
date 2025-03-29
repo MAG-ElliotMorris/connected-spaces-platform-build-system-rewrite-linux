@@ -24,6 +24,7 @@ jobs:
         uses: KyleMayes/install-llvm-action@v2
         with:
           version: "18.1.8"
+          cached: true
 
       - name: Install Dependencies
         #libtinfo5 not in the default 24.04 package repo
@@ -60,6 +61,7 @@ jobs:
         uses: KyleMayes/install-llvm-action@v2
         with:
           version: "18.1.8"
+          cached: true
 
       - name: Install Dependencies
         #libtinfo5 not in the default 24.04 package repo
