@@ -36,9 +36,7 @@ function ConfigWorkspaceForMSVC()
   }
 
   buildoptions{
-      "/bigobj",
-      "-fvisibility=hidden",
-      "-fvisibility-inlines-hidden"
+      "/bigobj"
   }
 
   linkoptions {
@@ -57,7 +55,11 @@ function ConfigCSPForMSVC()
         "asyncplusplus",
         "mimalloc",
         "tinyspline",
-        "POCONetSSL_OpenSSL"
+        "POCONetSSL_OpenSSL",
+        "POCONet",
+        "POCOCrypto",
+        "POCOUtil",
+        "POCOFoundation"
     }
 
     flags {
@@ -67,6 +69,12 @@ function ConfigCSPForMSVC()
     excludes {
         "**EmscriptenSignalRClient**",
         "**EmscriptenWebClient**"
+    }
+
+    
+    includedirs{
+        "dependencies/OpenSSL/1.1.1k/include/platform/win64",
+        "dependencies/OpenSSL/1.1.1k/include"
     }
 
     externalincludedirs {
