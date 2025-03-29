@@ -73,6 +73,7 @@ jobs:
           msbuild .\CppPackagingTest.sln /p:Configuration=Release
 
       - name: Run
+        shell: cmd
         run: |
           set PATH=%CD%\PackagingTests\Cpp\install\bin;%PATH%
           cd PackagingTests/Cpp/bin/Release
