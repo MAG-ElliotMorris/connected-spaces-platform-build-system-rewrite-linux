@@ -38,7 +38,7 @@ if not POCO.NETSSL_OpenSSL then
             "%{prj.location}/../../Net/include",
             "%{prj.location}/../../Crypto/include",
             "%{prj.location}/../../Util/include",
-           -- _MAIN_SCRIPT_DIR .. "/dependencies/OpenSSL/1.1.1k/include"
+            _MAIN_SCRIPT_DIR .. "/dependencies/OpenSSL/1.1.1k/include"
         }
         
         rtti("On")

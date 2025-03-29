@@ -29,7 +29,7 @@ if not POCO.Crypto then
         externalincludedirs {
             "%{prj.location}/../include",
             "%{prj.location}/../../Foundation/include",
-          --  _MAIN_SCRIPT_DIR .. "/dependencies/OpenSSL/1.1.1k/include"
+            _MAIN_SCRIPT_DIR .. "/dependencies/OpenSSL/1.1.1k/include"
         }
         
         rtti("On")
