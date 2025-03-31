@@ -16,6 +16,7 @@
 > - ~~Linux (Clang) Builds~~
 > - ~~Link Windows Build against a test exerciser~~
 > - ~~Link Linux Build against a test exerciser~~
+> - Get static builds going
 > - Add tests for full matrix of build configs
 > - Run Interop Generator
 > - Tests Project Builds
